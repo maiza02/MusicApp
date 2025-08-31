@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+	<head>
+	  <meta charset="UTF-8">
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	  <link rel="stylesheet" href="/css/style.css">
+	  <title>Add Album</title>
+	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	</head>
+	<body>
+		  <div>
+			<h1>Add New Album</h1>
+
+			<form th:action="@{/albums/add}" method="post" class="styled-form">
+			  <label for="albumname">Album Name:</label>
+			  <input type="text" id="albumname" name="albumname" required><br><br>
+
+			  <label for="publishDate">Year Published:</label>
+			  <input type="text" id="yearpublished" name="yearpublished" required><br><br>
+
+			  <label for="cover">Cover URL:</label>
+			  <input type="text" id="coverimage" name="coverimage"><br><br>
+
+			  <label for="description">Description:</label><br>
+			  <textarea id="description" name="description" required></textarea><br><br>
+			  
+			  <label for="artistName">Artist:</label>
+			  <input type="text" id="artistName" name="artistName" required>
+
+
+			  <button type="submit">Add Album</button>
+			</form>
+		  </div>
+
+	</body>
+</html>

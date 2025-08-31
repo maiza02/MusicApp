@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+	<head>
+	  <meta charset="UTF-8">
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	  <link rel="stylesheet" href="/css/style.css">
+	  <title>Add Album</title>
+	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	</head>
+	<body>
+		<h1>Manage Users</h1>
+
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th>Email</th>
+		      <th>Username</th>
+		      <th>Actions</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="user : ${users}">
+		      <td th:text="${user.email}">email@example.com</td>
+		      <td th:text="${user.username}">username</td>
+		      <td>
+		        <a th:href="@{'/users/edit/' + ${user.id}}" class="btn-edit">✏️ Edit</a>
+		        <form th:action="@{'/users/delete/' + ${user.id}}" method="post" style="display:inline;">
+		          <button type="submit" class="btn-delete">🗑️ Delete</button>
+		        </form>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+
+
+	</body>
+</html>
+
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+	<head>
+	  <meta charset="UTF-8">
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	  <link rel="stylesheet" href="/css/style.css">
+	  <title>Add Song</title>
+	</head>
+	<body>
+		  <div>
+			<h1>Add New Song</h1>
+
+			<form th:action="@{/add/song}" method="post" class="styled-form">
+			  <label for="songname">Song Name:</label>
+			  <input type="text" id="songname" name="songname" required><br><br>
+
+			  <label for="duration">Duration:</label>
+			  <input type="text" id="duration" name="duration" required><br><br>
+
+			  <label for="songURL">Song Link:</label>
+			  <input type="text" id="songURL" name="songURL" required><br><br>
+
+			  <label for="albumname">Album Name:</label>
+			  <input type="text" id="albumname" name="albumname" required><br><br>
+			  
+			  <label for="artistName">Artist:</label>
+			  <input type="text" id="artistName" name="artistName" required>
+
+
+			  <button type="submit">Add Song</button>
+			</form>
+		  </div>
+		  <script th:if="${param.songAdded}">
+		      alert("Song added successfully!");
+		  </script>
+
+		  <script th:if="${param.error}">
+		      alert("Song already exists in that album.");
+		  </script>
+
+	</body>
+</html>

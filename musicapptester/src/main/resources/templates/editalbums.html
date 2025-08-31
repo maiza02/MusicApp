@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Album</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Add Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <h1>Edit Album</h1>
+        
+        <form th:action="@{/albums/update/{id}(id=${album.id})}" method="post" th:object="${album}" class="styled-form">
+            
+            <label for="albumname">Album Name:</label>
+            <input type="text" id="albumname" name="albumname" th:field="*{albumname}" required><br><br>
+
+            <label for="yearpublished">Year Published:</label>
+            <input type="text" id="yearpublished" name="yearpublished" th:field="*{yearpublished}" required><br><br>
+
+            <label for="coverimage">Cover Image URL:</label>
+            <input type="text" id="coverimage" name="coverimage" th:field="*{coverimage}"><br><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" th:field="*{description}"></textarea><br><br>
+            
+            <label for="artistId">Artist</label>
+            <select id="artistId" name="artistId" style="width: 300px;">
+				<option th:each="artist : ${artists}" 
+				        th:value="${artist.id}" 
+				        th:text="${artist.artistName}" 
+				        th:selected="${album.artist != null and artist.id == album.artist.id}">
+				</option>
+            </select>
+            <br><br>
+
+            <button type="submit">Update Album</button>
+        </form>
+    </div>
+
+    <!-- Add jQuery + Select2 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+          $('#artistId').select2({
+              placeholder: "Select an artist",
+              allowClear: true
+          });
+      });
+    </script>
+</body>
+</html>
