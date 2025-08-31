@@ -1,47 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-	<head>
-	  <meta charset="UTF-8">
-	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-	  <link rel="stylesheet" href="/css/style.css">
-	  <title>Sign In</title>
-	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-	</head>
-	<body>
-		<div class="navbar">
-		  <div class="navbar-title">
-		    <h1>♫ Melody</h1>
-		  </div>
-		  <div class="navbar-links">
-			<a class="active" href="/"><i class="bi bi-house-fill"></i></a>
-		     <!-- <a href="/albums/add/album"><i class="bi bi-plus-circle"></i>Add Album</a>
-			<a href="/add/song"><i class="bi bi-plus-circle"></i>Add Song</a> -->
-					
-			<form th:action="@{/searching/search}" method="get" style="display: flex; align-items: right;">
-			  <input type="text" name="query" placeholder="Search..." class="search-input" />
-			  <button type="submit">🔍</button>
-			</form>
-		  </div>
-		</div>
-		<div>
-			<h1>Create Account</h1>
+<head>
+  <meta charset="UTF-8">
 
-				<form th:action="@{/user/add}" method="post" class="styled-form">
-				  <label for="username">Username:</label>
-				  <input type="text" id="username" name="username" required><br><br>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-				  <label for="password">Password:</label>
-				  <input type="password" id="password" name="password" required><br><br>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
 
-				  <label for="email">Email:</label>
-				  <input type="email" id="email" name="email"><br><br>
+  <title>Sign In</title>
 
+  <!-- jQuery and jQuery UI for additional UI functionality (if needed later) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <div class="navbar">
+    <div class="navbar-title">
+      <h1>♫ Melody</h1>
+    </div>
+    <div class="navbar-links">
+      <!-- Home Button -->
+      <a class="active" href="/"><i class="bi bi-house-fill"></i></a>
 
+      <!-- Search Form -->
+      <form th:action="@{/searching/search}" method="get" style="display: flex; align-items: right;">
+        <input type="text" name="query" placeholder="Search..." class="search-input" />
+        <button type="submit">🔍</button>
+      </form>
+    </div>
+  </div>
 
-				  <button type="submit">Create User</button>
-			</form>
-		</div>
-	</body>
+  <!-- Page Content -->
+  <div>
+    <h1>Create Account</h1>
+
+    <!-- User Registration Form -->
+    <!-- When submitted, sends POST request to /user/add in UserController -->
+    <form th:action="@{/user/add}" method="post" class="styled-form">
+
+      <!-- Username Field -->
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+
+      <!-- Password Field -->
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+
+      <!-- Email Field -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email"><br><br>
+
+      <!-- Submit Button -->
+      <button type="submit">Create User</button>
+    </form>
+  </div>
+</body>
 </html>

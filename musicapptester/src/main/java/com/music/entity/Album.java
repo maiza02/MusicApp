@@ -1,87 +1,90 @@
 package com.music.entity;
 
 import java.util.List;
-
 import jakarta.persistence.*;
 
+/**
+ * Album entity representing the "albums" table in the database.
+ * Each album is associated with an artist and may have multiple songs.
+ */
 @Entity
 @Table(name = "albums")
 public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;  // Primary key
 
-    private String albumname;
+    private String albumname; // Album title
 
-    private String yearpublished;
+    private String yearpublished; // Year the album was published
 
-    private String coverimage;
+    private String coverimage; // URL or path to the album cover image
 
-    private String description;
+    private String description; // Album description
 
     @ManyToOne
     @JoinColumn(name = "artist_id", nullable = false)
-    private Artist artist;
-    
+    private Artist artist; // The artist who created the album
+
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Song> songs;
+    private List<Song> songs; // List of songs in this album
 
-    
-	public Long getId() {
-	        return id;
-	    }
+    // --- Getters and Setters ---
 
-	public void setId(Long id) {
-	        this.id = id;
-	    }
+    public Long getId() {
+        return id;
+    }
 
-	public String getAlbumname() {
-		return albumname;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setAlbumname(String albumname) {
-		this.albumname = albumname;
-	}
+    public String getAlbumname() {
+        return albumname;
+    }
 
-	public String getYearpublished() {
-		return yearpublished;
-	}
+    public void setAlbumname(String albumname) {
+        this.albumname = albumname;
+    }
 
-	public void setYearpublished(String yearpublished) {
-		this.yearpublished = yearpublished;
-	}
+    public String getYearpublished() {
+        return yearpublished;
+    }
 
-	public String getCoverimage() {
-		return coverimage;
-	}
+    public void setYearpublished(String yearpublished) {
+        this.yearpublished = yearpublished;
+    }
 
-	public void setCoverimage(String coverimage) {
-		this.coverimage = coverimage;
-	}
+    public String getCoverimage() {
+        return coverimage;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setCoverimage(String coverimage) {
+        this.coverimage = coverimage;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public Artist getArtist() {
-	    return artist;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setArtist(Artist artist) {
-		this.artist = artist;
-	}
-	
-	public List<Song> getSongs() {
-	     return songs;
-	}
-	
-	public void setSongs(List<Song> songs) {
-	        this.songs = songs;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
 }

@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 	<head>
+		<!-- Bootstrap icons for navigation bar icons -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+		
+		<!-- Custom CSS file -->
 		<link rel="stylesheet" href="/css/style.css">
+		
+		<!-- jQuery and jQuery UI for interactivity (not heavily used here, but available) -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+		
+	    <!-- Dynamic title showing album name -->
 	    <title th:text="${album.albumname} + ' Details'"></title>
+	    
+	    <!-- Function to embed YouTube video player when a song is clicked -->
 	    <script>
 			function playSong(url) {
 			      // Extract video ID from YouTube or YouTube Music URL
@@ -20,17 +29,22 @@
 	    </script>
 	</head>
 	<body>
+		<!-- NAVBAR -->
 		<div class="navbar">
 		  <div class="navbar-title">
-		    <h1>♫ Melody</h1>
+		    <h1>♫ Melody</h1> <!-- App title -->
 		  </div>
 		  <div class="navbar-links">
+			<!-- Home button -->
 			<a class="active" href="/"><i class="bi bi-house-fill"></i></a>			
 			
+			<!-- Search bar -->
 			<form th:action="@{/searching/search}" method="get" style="display: flex; align-items: right;">
 			  <input type="text" name="query" placeholder="Search..." class="search-input" />
 			  <button type="submit">🔍</button>
 			</form>
+
+			<!-- Login and logout options -->
 			<a href="/login">Login</a>
 			<form th:action="@{/logout}" method="post" style="display:inline;">
 			  <button type="submit" style="background:none; border:none; cursor:pointer;">
@@ -39,50 +53,61 @@
 			</form>
 		  </div>
 		</div>
+		
+		<!-- ALBUM TITLE -->
 		<h2 style="text-align: center; margin-top: 30px;" th:text="${album.albumname} + ' - Album Details'">Album Details</h2>			
-	<div class="album-layout">
 
-	    <!-- LEFT SIDE: ALBUM INFO -->
-	    <div class="album-info">
-	        <img th:src="${album.coverimage}" alt="Album Cover">
-	        <h2 th:text="${album.albumname}"></h2>
-			<p><strong>Artist:</strong> <span th:text="${album.artist.artistName}"></span></p>
-	        <p><strong>Published:</strong> <span th:text="${album.yearpublished}"></span></p>
-	        <p><strong>Description:</strong></p><p th:text="${album.description}"></p>
+		<div class="album-layout">
+
+		    <!-- LEFT SIDE: ALBUM INFO -->
+		    <div class="album-info">
+		        <!-- Album cover -->
+		        <img th:src="${album.coverimage}" alt="Album Cover">
+
+		        <!-- Album details -->
+		        <h2 th:text="${album.albumname}"></h2>
+				<p><strong>Artist:</strong> <span th:text="${album.artist.artistName}"></span></p>
+		        <p><strong>Published:</strong> <span th:text="${album.yearpublished}"></span></p>
+		        <p><strong>Description:</strong></p>
+				<p th:text="${album.description}"></p>
+			</div>
+		        
+
+		    <!-- RIGHT SIDE: SONG LIST -->
+		    <div class="song-table">
+		        <h3>Songs</h3>
+				<table>
+				  <thead>
+				    <tr>
+				      <th>Title</th>
+				      <th>Duration</th>
+				      <th>Play</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <!-- Loop through each song in the album -->
+				    <tr th:each="song : ${album.songs}">
+				      <td th:text="${song.songname}">Song Name</td>
+				      <td th:text="${song.duration}">Duration</td>
+				      <td>
+				       <!-- Play button triggers playSong() with song URL -->
+				       <a href="#" th:attr="onclick=|playSong('${song.songURL}')|">Play</a>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+
+				<!-- Embedded YouTube player (hidden until Play is clicked) -->
+				<div class="audio-player">
+				     <iframe id="videoPlayer"
+				             style="display: none; width: 100%; height: 300px;"
+				             frameborder="0"
+				             allowfullscreen>
+				     </iframe>
+				 </div>
+		    </div>
+
 		</div>
-	        
-
-	    <!-- RIGHT SIDE: SONG LIST -->
-	    <div class="song-table">
-	        <h3>Songs</h3>
-			<table>
-			  <thead>
-			    <tr>
-			      <th>Title</th>
-			      <th>Duration</th>
-			      <th>Play</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr th:each="song : ${album.songs}">
-			      <td th:text="${song.songname}">Song Name</td>
-			      <td th:text="${song.duration}">Duration</td>
-			      <td>
-			       <a href="#" th:attr="onclick=|playSong('${song.songURL}')|">Play</a>
-			      </td>
-			    </tr>
-			  </tbody>
-			</table>
-			<div class="audio-player">
-			     <iframe id="videoPlayer"
-			             style="display: none; width: 100%; height: 300px;"
-			             frameborder="0"
-			             allowfullscreen>
-			     </iframe>
-			 </div>
-	    </div>
-
-	</div>
 
 	</body>
 </html>

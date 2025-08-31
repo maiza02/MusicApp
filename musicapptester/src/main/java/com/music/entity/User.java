@@ -2,81 +2,78 @@ package com.music.entity;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+/**
+ * User entity representing the "users" table in the database.
+ * Each user can have multiple roles for authorization purposes.
+ */
 @Entity
 @Table(name = "users")
 public class User {
 
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private Long id;
-	 
-	 private String username;
-	 
-	 private String password;
-	 
-	 private String email;
-	 
-	 private boolean enabled;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Primary key
 
-	 @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	 private List<Role> roles;
-	 
-	public String getUsername() {
-		return username;
-	}
+    private String username; // Username for login
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    private String password; // Encrypted password
 
-	public String getPassword() {
-		return password;
-	}
+    private String email; // User's email address
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private boolean enabled; // Flag indicating if the user account is active
 
-	public String getEmail() {
-		return email;
-	}
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Role> roles; // Roles assigned to the user
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    // --- Getters and Setters ---
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public List<Role> getRoles() {
-		return roles;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-	 
-	 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }

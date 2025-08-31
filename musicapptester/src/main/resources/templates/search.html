@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <!-- Import Bootstrap icons and your custom stylesheet -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/style.css">
   <title>Search Results</title>
 </head>
 <body>
+  <!-- Top Navigation Bar -->
   <div class="navbar">
     <div class="navbar-title">
       <h1>♫ Melody</h1>
     </div>
     <div class="navbar-links">
+      <!-- Home Button -->
       <a href="/"><i class="bi bi-house-fill"></i></a>
+      <!-- Search Bar (submits query to /searching/search endpoint) -->
       <form th:action="@{/searching/search}" method="get" style="display: flex;">
         <input type="text" name="query" placeholder="Search..." class="search-input" />
         <button type="submit">🔍</button>
@@ -19,21 +23,29 @@
     </div>
   </div>
 
+  <!-- Main Header -->
   <h1>Search Result</h1>
+  
+  <!-- Container for search results -->
   <div class="album-layout" style="margin-top: 20px; padding: 0 30px;">
 
+    <!-- Show the search query entered -->
     <h2>Search Results for: "<span th:text="${query}"></span>"</h2>
 
+    <!-- Artist Results -->
     <div th:if="${artists != null and !artists.isEmpty()}">
       <h3>Artists</h3>
       <ul>
+        <!-- Loop through artists and display their names -->
         <li th:each="artist : ${artists}" th:text="${artist.artistName}"></li>
       </ul>
     </div>
 
+    <!-- Album Results -->
     <div th:if="${albums != null and !albums.isEmpty()}">
       <h3>Albums</h3>
       <ul>
+        <!-- Loop through albums: clickable album name + artist name -->
         <li th:each="album : ${albums}">
           <a th:href="@{/albums/album/{id}(id=${album.id})}" th:text="${album.albumname}"></a>
           <span th:text="' by ' + ${album.artist.artistName}"></span>
@@ -41,18 +53,21 @@
       </ul>
     </div>
 
+    <!-- Song Results -->
     <div th:if="${songs != null and !songs.isEmpty()}">
       <h3>Songs</h3>
       <ul>
-		<li th:each="song : ${songs}">
-		     <span th:text="${song.songname}">Song Title</span> from 
-		     <a th:href="@{/albums/album/{id}(id=${song.album.id})}">
-		       the album <span th:text="${song.album.albumname}">Album Name</span>
-		     </a> by <span th:text="${song.album.artist.artistName}">Artist Name</span>
-		   </li>
+        <!-- Loop through songs: song name + album + artist -->
+        <li th:each="song : ${songs}">
+          <span th:text="${song.songname}">Song Title</span> from 
+          <a th:href="@{/albums/album/{id}(id=${song.album.id})}">
+            the album <span th:text="${song.album.albumname}">Album Name</span>
+          </a> by <span th:text="${song.album.artist.artistName}">Artist Name</span>
+        </li>
       </ul>
     </div>
 
+    <!-- If no results in any category, show message -->
     <div th:if="${artists.empty and albums.empty and songs.empty}">
       <p>No results found.</p>
     </div>

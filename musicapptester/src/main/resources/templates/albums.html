@@ -3,22 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Albums</title>
+  
+  <!-- Bootstrap Icons for navbar and UI elements -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  
+  <!-- Custom stylesheet -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+	<!-- NAVBAR -->
 	<div class="navbar">
 	  <div class="navbar-title">
+	    <!-- Website title/logo -->
 	    <h1>♫ Melody</h1>
 	  </div>
+	  
+	  <!-- Navigation links -->
 	  <div class="navbar-links">
+		<!-- Home button -->
 		<a class="active" href="/"><i class="bi bi-house-fill"></i></a>
 		
+		<!-- Search bar -->
 		<form th:action="@{/searching/search}" method="get" style="display: flex; align-items: right;">
 		  <input type="text" name="query" placeholder="Search..." class="search-input" />
 		  <button type="submit">🔍</button>
 		</form>
+		
+		<!-- Login link -->
 		<a href="/login">Login</a>
+		
+		<!-- Logout button (only shows if logged in) -->
 		<form th:action="@{/logout}" method="post" style="display:inline;">
 		  <button type="submit" style="background:none; border:none; cursor:pointer;">
 		    <i class="bi bi-box-arrow-right" style="font-size:1.3rem; color:inherit;"></i>
@@ -27,20 +41,39 @@
 	  </div>
 	</div>
   
+	<!-- ALBUM LIST SECTION -->
 	<div class="card-container">
+	  <!-- Loop through all albums -->
 	  <div class="card" th:each="album : ${albums}">
+	    <!-- Link to album details page -->
 	    <a th:href="@{/albums/album/{id}(id=${album.id})}" class="album-link">
-	      <img th:src="${album.coverimage}" alt="Cover Image" style="width:100%; height: 300px; object-fit: cover;">
+	      <!-- Album cover image -->
+	      <img th:src="${album.coverimage}" alt="Cover Image" 
+	           style="width:100%; height: 300px; object-fit: cover;">
 	    </a>
+	    
+	    <!-- Album details -->
 	    <div class="container">
+	      <!-- Album name -->
 	      <h4><b th:text="${album.albumname}">Album Name</b></h4>
-		  <p><strong>Artist:</strong> <span th:text="${album.artist.artistName}">Artist Name</span></p>
-	      <p><strong>Year:</strong> <span th:text="${album.yearpublished}">2024</span></p>
-		  <p><strong>Description:</strong> <span th:text="${album.description}">Album description here...</p>
+		  
+		  <!-- Artist name -->
+		  <p><strong>Artist:</strong> 
+		    <span th:text="${album.artist.artistName}">Artist Name</span>
+		  </p>
+	      
+	      <!-- Year published -->
+	      <p><strong>Year:</strong> 
+	        <span th:text="${album.yearpublished}">2024</span>
+	      </p>
+		  
+		  <!-- Album description -->
+		  <p><strong>Description:</strong> 
+		    <span th:text="${album.description}">Album description here...</span>
+		  </p>
 	    </div>
 	  </div>
 	</div>
-
 
 </body>
 </html>

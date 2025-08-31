@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-	<head>
-	  <meta charset="UTF-8">
-	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-	  <link rel="stylesheet" href="/css/style.css">
-	  <title>Add Song</title>
-	</head>
-	<body>
-		  <div>
-			<h1>Add New Song</h1>
+<head>
+  <meta charset="UTF-8">
 
-			<form th:action="@{/add/song}" method="post" class="styled-form">
-			  <label for="songname">Song Name:</label>
-			  <input type="text" id="songname" name="songname" required><br><br>
+  <!-- Bootstrap icons for UI styling -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-			  <label for="duration">Duration:</label>
-			  <input type="text" id="duration" name="duration" required><br><br>
+  <!-- Custom stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
 
-			  <label for="songURL">Song Link:</label>
-			  <input type="text" id="songURL" name="songURL" required><br><br>
+  <title>Add Song</title>
+</head>
+<body>
+  <div>
+    <!-- Page heading -->
+    <h1>Add New Song</h1>
 
-			  <label for="albumname">Album Name:</label>
-			  <input type="text" id="albumname" name="albumname" required><br><br>
-			  
-			  <label for="artistName">Artist:</label>
-			  <input type="text" id="artistName" name="artistName" required>
+    <!-- Song submission form -->
+    <!-- Sends POST request to /add/song -->
+    <form th:action="@{/add/song}" method="post" class="styled-form">
 
+      <!-- Song Name field -->
+      <label for="songname">Song Name:</label>
+      <input type="text" id="songname" name="songname" required><br><br>
 
-			  <button type="submit">Add Song</button>
-			</form>
-		  </div>
-		  <script th:if="${param.songAdded}">
-		      alert("Song added successfully!");
-		  </script>
+      <!-- Duration field -->
+      <label for="duration">Duration:</label>
+      <input type="text" id="duration" name="duration" required><br><br>
 
-		  <script th:if="${param.error}">
-		      alert("Song already exists in that album.");
-		  </script>
+      <!-- Song Link field -->
+      <label for="songURL">Song Link:</label>
+      <input type="text" id="songURL" name="songURL" required><br><br>
 
-	</body>
+      <!-- Album Name field -->
+      <label for="albumname">Album Name:</label>
+      <input type="text" id="albumname" name="albumname" required><br><br>
+      
+      <!-- Artist field -->
+      <label for="artistName">Artist:</label>
+      <input type="text" id="artistName" name="artistName" required>
+
+      <!-- Submit button -->
+      <button type="submit">Add Song</button>
+    </form>
+  </div>
+
+  <!-- Success alert message when song is added -->
+  <script th:if="${param.songAdded}">
+      alert("Song added successfully!");
+  </script>
+
+  <!-- Error alert message if song already exists -->
+  <script th:if="${param.error}">
+      alert("Song already exists in that album.");
+  </script>
+
+</body>
 </html>

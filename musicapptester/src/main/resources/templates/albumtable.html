@@ -2,19 +2,26 @@
 <html xmlns:th="https://www.thymeleaf.org">
 	<head>
 	  <meta charset="UTF-8">
+	  <!-- Bootstrap icons for styling -->
 	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	  <!-- Custom CSS -->
 	  <link rel="stylesheet" href="/css/style.css">
 	  <title>Add Album</title>
+
+	  <!-- jQuery and jQuery UI for possible interactivity (drag/drop, dialogs, etc.) -->
 	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 	</head>
 	<body>
+		<!-- Page Heading -->
 		<h1>Manage Albums</h1>
 
+		<!-- Albums Table -->
 		<table class="album-table">
 		  <thead>
 		    <tr>
+		      <!-- Table column headers -->
 		      <th>Title</th>
 		      <th>Artist</th>
 		      <th>Year Published</th>
@@ -22,14 +29,21 @@
 		    </tr>
 		  </thead>
 		  <tbody>
+		    <!-- Loop through albums list passed from the controller -->
 		    <tr th:each="album : ${albums}">
+		      <!-- Album title -->
 		      <td th:text="${album.albumname}">Album Title</td>
+		      <!-- Artist name (coming from the album’s artist object) -->
 		      <td th:text="${album.artist.artistName}">Artist Name</td>
+		      <!-- Year published -->
 		      <td th:text="${album.yearpublished}">Year</td>
 		      <td>
+				<!-- Edit button (links to edit page with album id) -->
 				<a href="#" 
 				   th:attr="data-url=@{'/edit/' + ${album.id}}" 
 				   class="btn-edit">✏️ Edit</a>
+
+		        <!-- Delete button (submits POST request to delete album by id) -->
 		        <form th:action="@{'/delete/' + ${album.id}}" method="post" style="display:inline;">
 		          <button type="submit" class="btn-delete">🗑️ Delete</button>
 		        </form>
@@ -40,6 +54,3 @@
 
 	</body>
 </html>
-
-
-
